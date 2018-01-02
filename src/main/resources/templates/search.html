@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<title>Insert title here</title>
+</head>
+<body>
+	<p></p>
+	<p></p>
+	<p></p>
+	<p></p>
+	<p></p>
+	<div align="center">
+		<form action="/suggest" method="get">
+			
+				<tr>
+					<td><input type="text" name="text" id="txt"/></td>
+					<td><input type="submit" value="Search" /></td>
+				</tr>
+			
+		</form>
+
+		<div th:if="${suggest}!=null">
+		
+			Showing results for <a th:href="@{${correctWordUrl}}"><td
+				th:text="${suggest}"></td> </a>
+			<p>
+				Search instead for <a th:href="@{${wrongWordUrl}}"><td
+					th:text="${token}"></td></a>
+			</p>
+		</div>
+
+		<div th:if="${searchNotFound}!=null">
+			<table>
+				<tr>
+					<td>No Result Found for -
+						<h4 th:text="${token}" ></h4> <!-- - did not match any documents. -->
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<p>Suggestions:</p>
+						<p></p>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<ul>
+							<li>Make sure that all words are spelled correctly.</li>
+							<li>Try different keywords.</li>
+							<li>Try more general keywords.</li>
+						</ul>
+					</td>
+				</tr>
+			</table>
+		</div>
+
+		<div align="center">
+		
+			<tr th:each="map : ${data}">
+				 <p>
+			
+					<h2 align="center">
+						<a th:href="@{${map.get('url')}}"><td th:text="${map.get('title')}"></td></a>
+					</h2>
+					 
+					<h4 align="center">
+						<font th:text="${map.get('url')}" color="green"></font>
+					</h4>
+					
+					<span  style="display:block; text-overflow: ellipsis;width: 1200px;overflow: hidden; white-space: nowrap;" th:text="${map.get('content')}"></span>
+				</p>
+				<p></p>
+			</tr>
+		</div>
+</div>
+</body>
+</html>
